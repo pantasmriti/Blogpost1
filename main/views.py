@@ -1,7 +1,9 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from .models import BlogpostModel
 from .forms import BlogPostForm
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def home(request):
     blogpost_objs = BlogpostModel.objects.all()
     context = {
@@ -9,6 +11,12 @@ def home(request):
     }
     # print(blogpost_objs.image.)
     return render(request, 'home.html', context)
+
+def category(request):
+    category_objs = BlogpostModel.objects.filter(category='')
+    context={}
+    return render(request, 'category.html', context)
+
 
 
 def blogpost_create(request):
@@ -38,3 +46,18 @@ def blogpost_delete(request, pk):
         post.delete()
         return redirect('blogpost_list')
     return render(request, 'blogpost_delete.html', {'post': post})
+
+
+
+from django.shortcuts import render, redirect
+from django.contrib.auth.forms import UserCreationForm
+
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+    else:
+        form = UserCreationForm()
+    return render(request, 'register.html', {'form': form})
