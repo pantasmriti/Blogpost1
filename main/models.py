@@ -22,7 +22,7 @@ class BlogpostModel(models.Model):
     title = models.CharField(max_length=128)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=True)
-    image = models.ImageField(upload_to="")
+    image = models.ImageField(upload_to="blogpost")
     author = models.ForeignKey(AuthorModel, on_delete=models.CASCADE)
     category = models.ForeignKey(CategoryModel, on_delete=models.CASCADE)
 
