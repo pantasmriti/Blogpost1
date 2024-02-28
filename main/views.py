@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404, render, redirect
-from .models import BlogpostModel
+from .models import BlogpostModel,CategoryModel
 from .forms import BlogPostForm
 from django.contrib.auth.decorators import login_required
 
@@ -13,8 +13,12 @@ def home(request):
     return render(request, 'home.html', context)
 
 def category(request):
-    category_objs = BlogpostModel.objects.filter(category='')
-    context={}
+    technology= CategoryModel.objects.all().values('title','description')
+    # category_objs = BlogpostModel.objects.all()
+    
+    context={ 
+        'technology':technology
+    }
     return render(request, 'category.html', context)
 
 

@@ -10,6 +10,10 @@ class AuthorModel(models.Model):
     bio = models.CharField(max_length=128)
     email = models.EmailField()
 
+    class Meta:
+        verbose_name='Author'
+        verbose_name_plural='Authors'
+
     def __str__(self):
         return self.name
 
